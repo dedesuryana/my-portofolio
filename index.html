@@ -1,0 +1,1060 @@
+<!doctype html>
+<html lang="id">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DS - PORTOFOLIO</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+    }
+
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+
+    .project-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    @keyframes slideInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes slideInBottom {
+      from {
+        opacity: 0;
+        transform: translateY(80px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes zoomIn {
+      from {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .fade-in-left {
+      animation: fadeInLeft 0.8s ease forwards;
+    }
+
+    .fade-in-right {
+      animation: fadeInRight 0.8s ease forwards;
+    }
+
+    .float-animation {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .rotate-slow {
+      animation: rotate 20s linear infinite;
+    }
+
+    .pulse-animation {
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .slide-in-scale {
+      animation: slideInScale 0.5s ease forwards;
+      opacity: 0;
+    }
+
+    .slide-in-bottom {
+      animation: slideInBottom 0.8s ease forwards;
+      opacity: 0;
+    }
+
+    .zoom-in {
+      animation: zoomIn 0.6s ease forwards;
+      opacity: 0;
+    }
+
+    .scroll-animate {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .scroll-animate.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    section.revealed {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    .stagger-1 {
+      animation-delay: 0.1s;
+      opacity: 0;
+    }
+
+    .stagger-2 {
+      animation-delay: 0.2s;
+      opacity: 0;
+    }
+
+    .stagger-3 {
+      animation-delay: 0.3s;
+      opacity: 0;
+    }
+
+    .stagger-4 {
+      animation-delay: 0.4s;
+    }
+
+    .stagger-5 {
+      animation-delay: 0.6s;
+    }
+
+    .stagger-6 {
+      animation-delay: 0.8s;
+    }
+
+    .skill-tag {
+      transition: all 0.3s ease;
+    }
+
+    .skill-tag:hover {
+      transform: scale(1.05);
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="smooth-scroll">
+  <div id="app" style="width: 100%; min-height: 100%;"></div>
+  <script>
+    const defaultConfig = {
+      background_color: "#0f172a",
+      surface_color: "#1e293b",
+      text_color: "#f8fafc",
+      primary_action_color: "#3b82f6",
+      secondary_action_color: "#64748b",
+      hero_name: "Dede Suryana",
+      hero_title: "Full Stack Developer",
+      hero_description: "Able to build the entire application, from visual design to behind-the-scenes data management, and ensure that both parts are well integrated",
+      about_title: "About Me",
+      about_text: "I'm a passionate full-stack developer with over 5 years of experience creating web designs, sales support applications, and user-centric projects. I specialize in mobile apps, web platforms, scalable design systems, and recently, I've also dabbled in IoT.",
+      projects_title: "Featured Projects",
+      contact_title: "Let's Work Together",
+      contact_description: "Have a project you want to work on? Let's get started!",
+      footer_text: "© 2025 Dede Suryana. All rights reserved.",
+      font_family: "Inter",
+      font_size: 16
+    };
+
+    let config = {};
+
+    async function onConfigChange(newConfig) {
+      config = newConfig;
+      
+      const customFont = config.font_family || defaultConfig.font_family;
+      const baseSize = config.font_size || defaultConfig.font_size;
+      const baseFontStack = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      
+      const backgroundColor = config.background_color || defaultConfig.background_color;
+      const surfaceColor = config.surface_color || defaultConfig.surface_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+      const primaryColor = config.primary_action_color || defaultConfig.primary_action_color;
+      const secondaryColor = config.secondary_action_color || defaultConfig.secondary_action_color;
+
+      document.body.style.backgroundColor = backgroundColor;
+      document.body.style.color = textColor;
+      document.body.style.fontFamily = `${customFont}, ${baseFontStack}`;
+
+      // Update navigation
+      const nav = document.getElementById('main-nav');
+      if (nav) {
+        nav.style.backgroundColor = `${backgroundColor}dd`;
+      }
+
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        link.style.color = textColor;
+        link.style.setProperty('--hover-color', primaryColor);
+      });
+
+      const navLinkAfters = document.querySelectorAll('.nav-link::after');
+      const style = document.createElement('style');
+      style.textContent = `.nav-link::after { background-color: ${primaryColor}; }`;
+      document.head.appendChild(style);
+
+      // Update hero section
+      const heroSection = document.getElementById('hero-section');
+      if (heroSection) {
+        heroSection.style.backgroundColor = backgroundColor;
+      }
+
+      const heroName = document.getElementById('hero-name');
+      if (heroName) {
+        heroName.textContent = config.hero_name || defaultConfig.hero_name;
+        heroName.style.fontSize = `${baseSize * 3}px`;
+        heroName.style.color = textColor;
+        heroName.style.fontFamily = `${customFont}, ${baseFontStack}`;
+      }
+
+      const heroTitle = document.getElementById('hero-title');
+      if (heroTitle) {
+        heroTitle.textContent = config.hero_title || defaultConfig.hero_title;
+        heroTitle.style.fontSize = `${baseSize * 1.5}px`;
+        heroTitle.style.color = primaryColor;
+        heroTitle.style.fontFamily = `${customFont}, ${baseFontStack}`;
+      }
+
+      const heroDesc = document.getElementById('hero-description');
+      if (heroDesc) {
+        heroDesc.textContent = config.hero_description || defaultConfig.hero_description;
+        heroDesc.style.fontSize = `${baseSize * 1.125}px`;
+        heroDesc.style.color = secondaryColor;
+        heroDesc.style.fontFamily = `${customFont}, ${baseFontStack}`;
+      }
+
+      const heroButton = document.getElementById('hero-button');
+      if (heroButton) {
+        heroButton.style.backgroundColor = primaryColor;
+        heroButton.style.color = textColor;
+        heroButton.style.fontSize = `${baseSize}px`;
+        heroButton.style.fontFamily = `${customFont}, ${baseFontStack}`;
+      }
+
+      // Update about section
+      const aboutSection = document.getElementById('about-section');
+      if (aboutSection) {
+        aboutSection.style.backgroundColor = surfaceColor;
+      }
+
+      const aboutTitle = document.getElementById('about-title');
+      if (aboutTitle) {
+        aboutTitle.textContent = config.about_title || defaultConfig.about_title;
+        aboutTitle.style.fontSize = `${baseSize * 2}px`;
+        aboutTitle.style.color = textColor;
+        aboutTitle.style.fontFamily = `${customFont}, ${baseFontStack}`;
+      }
+
+      const aboutText = document.getElementById('about-text');
+      if (aboutText) {
+        aboutText.textContent = config.about_text || defaultConfig.about_text;
+        aboutText.style.fontSize = `${baseSize * 1.125}px`;
+        aboutText.style.color = secondaryColor;
+        aboutText.style.fontFamily = `${customFont}, ${baseFontStack}`;
+      }
+
+      const skillTags = document.querySelectorAll('.skill-tag');
+      skillTags.forEach(tag => {
+        tag.style.backgroundColor = `${primaryColor}22`;
+        tag.style.color = primaryColor;
+        tag.style.fontSize = `${baseSize * 0.875}px`;
+        tag.style.fontFamily = `${customFont}, ${baseFontStack}`;
+      });
+
+      // Update projects section
+      const projectsSection = document.getElementById('projects-section');
+      if (projectsSection) {
+        projectsSection.style.backgroundColor = backgroundColor;
+      }
+
+      const projectsTitle = document.getElementById('projects-title');
+      if (projectsTitle) {
+        projectsTitle.textContent = config.projects_title || defaultConfig.projects_title;
+        projectsTitle.style.fontSize = `${baseSize * 2}px`;
+        projectsTitle.style.color = textColor;
+        projectsTitle.style.fontFamily = `${customFont}, ${baseFontStack}`;
+      }
+
+      const projectCards = document.querySelectorAll('.project-card');
+      projectCards.forEach(card => {
+        card.style.backgroundColor = surfaceColor;
+        
+        const cardTitle = card.querySelector('.project-title');
+        if (cardTitle) {
+          cardTitle.style.fontSize = `${baseSize * 1.25}px`;
+          cardTitle.style.color = textColor;
+          cardTitle.style.fontFamily = `${customFont}, ${baseFontStack}`;
+        }
+
+        const cardDesc = card.querySelector('.project-desc');
+        if (cardDesc) {
+          cardDesc.style.fontSize = `${baseSize}px`;
+          cardDesc.style.color = secondaryColor;
+          cardDesc.style.fontFamily = `${customFont}, ${baseFontStack}`;
+        }
+
+        const cardButton = card.querySelector('.project-button');
+        if (cardButton) {
+          cardButton.style.color = primaryColor;
+          cardButton.style.fontSize = `${baseSize * 0.875}px`;
+          cardButton.style.fontFamily = `${customFont}, ${baseFontStack}`;
+        }
+      });
+
+      // Update contact section
+      const contactSection = document.getElementById('contact-section');
+      if (contactSection) {
+        contactSection.style.backgroundColor = surfaceColor;
+      }
+
+      const contactTitle = document.getElementById('contact-title');
+      if (contactTitle) {
+        contactTitle.textContent = config.contact_title || defaultConfig.contact_title;
+        contactTitle.style.fontSize = `${baseSize * 2}px`;
+        contactTitle.style.color = textColor;
+        contactTitle.style.fontFamily = `${customFont}, ${baseFontStack}`;
+      }
+
+      const contactDesc = document.getElementById('contact-description');
+      if (contactDesc) {
+        contactDesc.textContent = config.contact_description || defaultConfig.contact_description;
+        contactDesc.style.fontSize = `${baseSize * 1.125}px`;
+        contactDesc.style.color = secondaryColor;
+        contactDesc.style.fontFamily = `${customFont}, ${baseFontStack}`;
+      }
+
+      const contactButton = document.getElementById('contact-button');
+      if (contactButton) {
+        contactButton.style.backgroundColor = primaryColor;
+        contactButton.style.color = textColor;
+        contactButton.style.fontSize = `${baseSize}px`;
+        contactButton.style.fontFamily = `${customFont}, ${baseFontStack}`;
+      }
+
+      // Update footer
+      const footer = document.getElementById('footer');
+      if (footer) {
+        footer.style.backgroundColor = backgroundColor;
+      }
+
+      const footerText = document.getElementById('footer-text');
+      if (footerText) {
+        footerText.textContent = config.footer_text || defaultConfig.footer_text;
+        footerText.style.fontSize = `${baseSize * 0.875}px`;
+        footerText.style.color = secondaryColor;
+        footerText.style.fontFamily = `${customFont}, ${baseFontStack}`;
+      }
+
+      const socialLinks = document.querySelectorAll('.social-link');
+      socialLinks.forEach(link => {
+        link.style.color = secondaryColor;
+      });
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => {
+              config.background_color = value;
+              window.elementSdk.setConfig({ background_color: value });
+            }
+          },
+          {
+            get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => {
+              config.surface_color = value;
+              window.elementSdk.setConfig({ surface_color: value });
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              window.elementSdk.setConfig({ text_color: value });
+            }
+          },
+          {
+            get: () => config.primary_action_color || defaultConfig.primary_action_color,
+            set: (value) => {
+              config.primary_action_color = value;
+              window.elementSdk.setConfig({ primary_action_color: value });
+            }
+          },
+          {
+            get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+            set: (value) => {
+              config.secondary_action_color = value;
+              window.elementSdk.setConfig({ secondary_action_color: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => {
+            config.font_family = value;
+            window.elementSdk.setConfig({ font_family: value });
+          }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (value) => {
+            config.font_size = value;
+            window.elementSdk.setConfig({ font_size: value });
+          }
+        }
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["hero_name", config.hero_name || defaultConfig.hero_name],
+        ["hero_title", config.hero_title || defaultConfig.hero_title],
+        ["hero_description", config.hero_description || defaultConfig.hero_description],
+        ["about_title", config.about_title || defaultConfig.about_title],
+        ["about_text", config.about_text || defaultConfig.about_text],
+        ["projects_title", config.projects_title || defaultConfig.projects_title],
+        ["contact_title", config.contact_title || defaultConfig.contact_title],
+        ["contact_description", config.contact_description || defaultConfig.contact_description],
+        ["footer_text", config.footer_text || defaultConfig.footer_text]
+      ]);
+    }
+
+    function initializeApp() {
+      const app = document.getElementById('app');
+      
+      app.innerHTML = `
+        <!-- Navigation -->
+        <nav id="main-nav" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; backdrop-filter: blur(10px);">
+          <div style="max-width: 1200px; margin: 0 auto; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center;">
+            <div style="font-size: 1.5rem; font-weight: bold;">DS</div>
+            <div style="display: flex; gap: 2rem;">
+              <a href="#about" class="nav-link" style="text-decoration: none; font-weight: 500;">About</a>
+              <a href="#projects" class="nav-link" style="text-decoration: none; font-weight: 500;">Projects</a>
+              <a href="#contact" class="nav-link" style="text-decoration: none; font-weight: 500;">Contact</a>
+            </div>
+          </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section id="hero-section" style="padding: 8rem 2rem 6rem; text-align: center; min-height: 80%; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+          <!-- Animated Background Elements with Code Theme Parallax -->
+          <!-- HTML Tag -->
+          <div class="parallax-slow float-animation" style="position: absolute; top: 8%; left: 8%; pointer-events: none; opacity: 0.3;">
+            <svg width="100" height="100" viewBox="0 0 100 100">
+              <text x="10" y="50" font-family="monospace" font-size="40" fill="#3b82f6" font-weight="bold">&lt;/&gt;</text>
+            </svg>
+          </div>
+          
+          <!-- Curly Braces -->
+          <div class="parallax-fast pulse-animation" style="position: absolute; top: 15%; right: 12%; pointer-events: none; opacity: 0.25;">
+            <svg width="80" height="80" viewBox="0 0 80 80">
+              <text x="5" y="50" font-family="monospace" font-size="50" fill="#3b82f6" font-weight="bold">{ }</text>
+            </svg>
+          </div>
+          
+          <!-- Code Brackets -->
+          <div class="parallax-slow rotate-slow" style="position: absolute; bottom: 12%; left: 10%; pointer-events: none; opacity: 0.3; animation-duration: 30s;">
+            <svg width="90" height="90" viewBox="0 0 90 90">
+              <text x="10" y="55" font-family="monospace" font-size="45" fill="#3b82f6" font-weight="bold">[ ]</text>
+            </svg>
+          </div>
+          
+          <!-- Function Symbol -->
+          <div class="parallax-fast float-animation" style="position: absolute; top: 45%; right: 8%; pointer-events: none; opacity: 0.2; animation-delay: 0.5s;">
+            <svg width="70" height="70" viewBox="0 0 70 70">
+              <text x="5" y="45" font-family="monospace" font-size="35" fill="#3b82f6" font-weight="bold">fn()</text>
+            </svg>
+          </div>
+          
+          <!-- Semicolon -->
+          <div class="parallax-slow pulse-animation" style="position: absolute; bottom: 25%; right: 18%; pointer-events: none; opacity: 0.25; animation-delay: 1s;">
+            <svg width="60" height="60" viewBox="0 0 60 60">
+              <text x="15" y="40" font-family="monospace" font-size="50" fill="#3b82f6" font-weight="bold">;</text>
+            </svg>
+          </div>
+          
+          <!-- Arrow Function -->
+          <div class="parallax-fast float-animation" style="position: absolute; top: 60%; left: 15%; pointer-events: none; opacity: 0.2; animation-delay: 1.5s;">
+            <svg width="75" height="75" viewBox="0 0 75 75">
+              <text x="5" y="45" font-family="monospace" font-size="35" fill="#3b82f6" font-weight="bold">=&gt;</text>
+            </svg>
+          </div>
+          
+          <!-- Code Comment -->
+          <div class="parallax-slow" style="position: absolute; top: 30%; left: 5%; pointer-events: none; opacity: 0.15;">
+            <svg width="100" height="50" viewBox="0 0 100 50">
+              <text x="5" y="30" font-family="monospace" font-size="20" fill="#3b82f6" font-style="italic">//code</text>
+            </svg>
+          </div>
+          
+          <!-- Binary Code -->
+          <div class="parallax-fast pulse-animation" style="position: absolute; bottom: 35%; right: 5%; pointer-events: none; opacity: 0.2; animation-delay: 0.8s;">
+            <svg width="60" height="60" viewBox="0 0 60 60">
+              <text x="5" y="25" font-family="monospace" font-size="18" fill="#3b82f6">101</text>
+              <text x="5" y="45" font-family="monospace" font-size="18" fill="#3b82f6">010</text>
+            </svg>
+          </div>
+          
+          <div style="max-width: 800px; position: relative; z-index: 1;">
+            <div class="fade-in-up" style="margin-bottom: 1rem; font-size: 1rem; font-weight: 600; letter-spacing: 0.1em; opacity: 0; animation-delay: 0s;">👋 HELLO, I'M</div>
+            <h1 id="hero-name" class="fade-in-up stagger-1" style="margin-bottom: 1rem; font-weight: 800; line-height: 1.1;">Sarah Anderson</h1>
+            <h2 id="hero-title" class="fade-in-up stagger-2" style="margin-bottom: 1.5rem; font-weight: 600;">UI/UX Designer</h2>
+            <p id="hero-description" class="fade-in-up stagger-3" style="margin-bottom: 2.5rem; line-height: 1.6; max-width: 600px; margin-left: auto; margin-right: auto;">Crafting intuitive digital experiences that users love</p>
+            <button id="hero-button" class="fade-in-up stagger-3" onclick="document.getElementById('projects').scrollIntoView({behavior: 'smooth'})" style="padding: 1rem 2.5rem; border: none; border-radius: 9999px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(59, 130, 246, 0.6)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 14px rgba(59, 130, 246, 0.4)'">View My Work</button>
+          </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" style="scroll-margin-top: 5rem;">
+          <div id="about-section" style="padding: 5rem 2rem;">
+            <div style="max-width: 1200px; margin: 0 auto;">
+              <h2 id="about-title" class="slide-in-scale about-animate" style="margin-bottom: 3rem; text-align: center; font-weight: 700;">About Me</h2>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; align-items: center;">
+                <div class="fade-in-left about-animate">
+                  <p id="about-text" style="margin-bottom: 2rem; line-height: 1.8;">I'm a passionate UI/UX designer with 5+ years of experience creating user-centered designs. I specialize in mobile apps, web platforms, and design systems that scale.</p>
+                  <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+                    <span class="skill-tag slide-in-scale about-animate stagger-1" style="padding: 0.5rem 1rem; border-radius: 9999px; font-weight: 500;">Figma</span>
+                    <span class="skill-tag slide-in-scale about-animate stagger-2" style="padding: 0.5rem 1rem; border-radius: 9999px; font-weight: 500;">Adobe XD</span>
+                    <span class="skill-tag slide-in-scale about-animate stagger-3" style="padding: 0.5rem 1rem; border-radius: 9999px; font-weight: 500;">Sketch</span>
+                    <span class="skill-tag slide-in-scale about-animate stagger-4" style="padding: 0.5rem 1rem; border-radius: 9999px; font-weight: 500;">Prototyping</span>
+                    <span class="skill-tag slide-in-scale about-animate stagger-5" style="padding: 0.5rem 1rem; border-radius: 9999px; font-weight: 500;">User Research</span>
+                    <span class="skill-tag slide-in-scale about-animate stagger-6" style="padding: 0.5rem 1rem; border-radius: 9999px; font-weight: 500;">Design Systems</span>
+                  </div>
+                </div>
+                <div class="fade-in-right about-animate" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
+                  <!-- React Logo -->
+                  <div class="float-animation" style="animation-delay: 0s;">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                      <circle cx="40" cy="40" r="8" fill="#61DAFB"/>
+                      <ellipse cx="40" cy="40" rx="35" ry="15" fill="none" stroke="#61DAFB" stroke-width="3"/>
+                      <ellipse cx="40" cy="40" rx="35" ry="15" fill="none" stroke="#61DAFB" stroke-width="3" transform="rotate(60 40 40)"/>
+                      <ellipse cx="40" cy="40" rx="35" ry="15" fill="none" stroke="#61DAFB" stroke-width="3" transform="rotate(120 40 40)"/>
+                    </svg>
+                    <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7; font-family: monospace;">React</p>
+                  </div>
+                  
+                  <!-- Vue Logo -->
+                  <div class="float-animation" style="animation-delay: 0.3s;">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                      <path d="M40 15 L20 45 L60 45 Z" fill="#42B883"/>
+                      <path d="M40 15 L30 30 L50 30 Z" fill="#35495E"/>
+                      <path d="M20 45 L40 65 L60 45 Z" fill="#35495E" opacity="0.3"/>
+                    </svg>
+                    <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7; font-family: monospace;">Vue</p>
+                  </div>
+                  
+                  <!-- AI/Neural Network -->
+                  <div class="pulse-animation" style="animation-delay: 0.5s;">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                      <circle cx="20" cy="20" r="5" fill="#A855F7"/>
+                      <circle cx="20" cy="40" r="5" fill="#A855F7"/>
+                      <circle cx="20" cy="60" r="5" fill="#A855F7"/>
+                      <circle cx="40" cy="25" r="5" fill="#EC4899"/>
+                      <circle cx="40" cy="40" r="5" fill="#EC4899"/>
+                      <circle cx="40" cy="55" r="5" fill="#EC4899"/>
+                      <circle cx="60" cy="40" r="5" fill="#3B82F6"/>
+                      <line x1="25" y1="20" x2="35" y2="25" stroke="#A855F7" stroke-width="2" opacity="0.5"/>
+                      <line x1="25" y1="40" x2="35" y2="40" stroke="#A855F7" stroke-width="2" opacity="0.5"/>
+                      <line x1="25" y1="60" x2="35" y2="55" stroke="#A855F7" stroke-width="2" opacity="0.5"/>
+                      <line x1="45" y1="25" x2="55" y2="40" stroke="#EC4899" stroke-width="2" opacity="0.5"/>
+                      <line x1="45" y1="40" x2="55" y2="40" stroke="#EC4899" stroke-width="2" opacity="0.5"/>
+                      <line x1="45" y1="55" x2="55" y2="40" stroke="#EC4899" stroke-width="2" opacity="0.5"/>
+                    </svg>
+                    <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7; font-family: monospace;">AI/ML</p>
+                  </div>
+                  
+                  <!-- TypeScript Logo -->
+                  <div class="float-animation" style="animation-delay: 0.7s;">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                      <rect x="15" y="15" width="50" height="50" rx="5" fill="#3178C6"/>
+                      <text x="40" y="50" font-family="monospace" font-size="35" fill="white" text-anchor="middle" font-weight="bold">TS</text>
+                    </svg>
+                    <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7; font-family: monospace;">TypeScript</p>
+                  </div>
+                  
+                  <!-- Docker Logo -->
+                  <div class="float-animation" style="animation-delay: 1s;">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                      <rect x="15" y="35" width="10" height="8" fill="#2496ED" opacity="0.8"/>
+                      <rect x="27" y="35" width="10" height="8" fill="#2496ED" opacity="0.8"/>
+                      <rect x="39" y="35" width="10" height="8" fill="#2496ED" opacity="0.8"/>
+                      <rect x="51" y="35" width="10" height="8" fill="#2496ED" opacity="0.8"/>
+                      <rect x="27" y="25" width="10" height="8" fill="#2496ED" opacity="0.9"/>
+                      <rect x="39" y="25" width="10" height="8" fill="#2496ED" opacity="0.9"/>
+                      <ellipse cx="40" cy="50" rx="25" ry="8" fill="none" stroke="#2496ED" stroke-width="2"/>
+                    </svg>
+                    <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7; font-family: monospace;">Docker</p>
+                  </div>
+                  
+                  <!-- Cloud Icon -->
+                  <div class="pulse-animation" style="animation-delay: 1.2s;">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                      <path d="M25 45 Q25 35 35 35 Q35 25 45 25 Q55 25 55 35 Q65 35 65 45 Q65 55 55 55 L35 55 Q25 55 25 45 Z" fill="#10B981" opacity="0.7"/>
+                      <circle cx="35" cy="42" r="3" fill="white" opacity="0.5"/>
+                      <circle cx="45" cy="42" r="3" fill="white" opacity="0.5"/>
+                      <circle cx="55" cy="42" r="3" fill="white" opacity="0.5"/>
+                    </svg>
+                    <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7; font-family: monospace;">Cloud</p>
+                  </div>
+                  
+                  <!-- Git Logo -->
+                  <div class="float-animation" style="animation-delay: 1.5s;">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                      <rect x="20" y="30" width="40" height="20" rx="3" fill="#F05032" transform="rotate(45 40 40)"/>
+                      <circle cx="30" cy="40" r="5" fill="white"/>
+                      <circle cx="50" cy="40" r="5" fill="white"/>
+                    </svg>
+                    <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7; font-family: monospace;">Git</p>
+                  </div>
+                  
+                  <!-- API/GraphQL -->
+                  <div class="pulse-animation rotate-slow" style="animation-delay: 1.8s;">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                      <circle cx="40" cy="40" r="25" fill="none" stroke="#E535AB" stroke-width="3"/>
+                      <circle cx="40" cy="20" r="4" fill="#E535AB"/>
+                      <circle cx="60" cy="40" r="4" fill="#E535AB"/>
+                      <circle cx="40" cy="60" r="4" fill="#E535AB"/>
+                      <circle cx="20" cy="40" r="4" fill="#E535AB"/>
+                      <circle cx="53" cy="27" r="4" fill="#E535AB"/>
+                      <circle cx="53" cy="53" r="4" fill="#E535AB"/>
+                      <circle cx="40" cy="40" r="6" fill="#E535AB"/>
+                    </svg>
+                    <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7; font-family: monospace;">GraphQL</p>
+                  </div>
+                  
+                  <!-- Laravel Logo -->
+                  <div class="float-animation" style="animation-delay: 2s;">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                      <path d="M15 25 L25 20 L25 50 L35 55 L35 30 L45 25 L45 60 L55 65 L55 35 L65 30 L50 60 L35 70 L15 60 Z" fill="#FF2D20" opacity="0.9"/>
+                      <path d="M25 20 L35 25 L35 30 L25 25 Z" fill="#FF2D20" opacity="0.7"/>
+                    </svg>
+                    <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7; font-family: monospace;">Laravel</p>
+                  </div>
+                  
+                  <!-- CodeIgniter Logo -->
+                  <div class="pulse-animation" style="animation-delay: 2.2s;">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                      <circle cx="40" cy="40" r="22" fill="#EE4323" opacity="0.8"/>
+                      <path d="M30 35 Q40 30 50 35" stroke="white" stroke-width="3" fill="none"/>
+                      <circle cx="33" cy="38" r="2" fill="white"/>
+                      <circle cx="47" cy="38" r="2" fill="white"/>
+                      <path d="M32 48 Q40 52 48 48" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                    </svg>
+                    <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7; font-family: monospace;">CodeIgniter</p>
+                  </div>
+                  
+                  <!-- Python Logo -->
+                  <div class="float-animation" style="animation-delay: 2.4s;">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                      <path d="M25 35 Q25 25 35 25 L45 25 Q50 25 50 30 L50 40 L30 40 L30 45 L55 45 Q60 45 60 50 L60 55 Q60 60 55 60 L35 60 Q30 60 30 55 L30 45" fill="#3776AB" opacity="0.8"/>
+                      <path d="M55 45 Q55 35 45 35 L35 35 Q30 35 30 40 L30 50 L50 50 L50 55 L25 55 Q20 55 20 50 L20 45 Q20 40 25 40 L45 40 Q50 40 50 35 L50 25" fill="#FFD43B" opacity="0.8"/>
+                      <circle cx="35" cy="30" r="2" fill="white"/>
+                      <circle cx="45" cy="50" r="2" fill="white"/>
+                    </svg>
+                    <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7; font-family: monospace;">Python</p>
+                  </div>
+                  
+                  <!-- Arduino Logo -->
+                  <div class="pulse-animation" style="animation-delay: 2.6s;">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                      <circle cx="30" cy="40" r="18" fill="none" stroke="#00979D" stroke-width="3"/>
+                      <line x1="20" y1="40" x2="40" y2="40" stroke="#00979D" stroke-width="3"/>
+                      <line x1="30" y1="30" x2="30" y2="50" stroke="#00979D" stroke-width="3"/>
+                      <circle cx="55" cy="40" r="18" fill="none" stroke="#00979D" stroke-width="3"/>
+                      <line x1="45" y1="40" x2="65" y2="40" stroke="#00979D" stroke-width="3"/>
+                    </svg>
+                    <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7; font-family: monospace;">Arduino</p>
+                  </div>
+                  
+                  <!-- Raspberry Pi Logo -->
+                  <div class="float-animation" style="animation-delay: 2.8s;">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                      <ellipse cx="40" cy="42" rx="20" ry="22" fill="#C51A4A" opacity="0.8"/>
+                      <circle cx="32" cy="35" r="3" fill="#75AC1F"/>
+                      <circle cx="48" cy="35" r="3" fill="#75AC1F"/>
+                      <circle cx="40" cy="28" r="3" fill="#75AC1F"/>
+                      <circle cx="28" cy="42" r="3" fill="#75AC1F"/>
+                      <circle cx="52" cy="42" r="3" fill="#75AC1F"/>
+                      <circle cx="32" cy="50" r="3" fill="#75AC1F"/>
+                      <circle cx="48" cy="50" r="3" fill="#75AC1F"/>
+                      <circle cx="40" cy="56" r="3" fill="#75AC1F"/>
+                      <rect x="38" y="18" width="4" height="8" rx="2" fill="#75AC1F"/>
+                    </svg>
+                    <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7; font-family: monospace;">Raspberry Pi</p>
+                  </div>
+                  
+                  <!-- IoT Icon -->
+                  <div class="pulse-animation rotate-slow" style="animation-delay: 3s;">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                      <circle cx="40" cy="40" r="6" fill="#6366F1"/>
+                      <circle cx="40" cy="40" r="15" fill="none" stroke="#6366F1" stroke-width="2" stroke-dasharray="3 3"/>
+                      <circle cx="40" cy="40" r="24" fill="none" stroke="#6366F1" stroke-width="2" stroke-dasharray="4 4" opacity="0.6"/>
+                      <circle cx="25" cy="25" r="4" fill="#8B5CF6"/>
+                      <circle cx="55" cy="25" r="4" fill="#8B5CF6"/>
+                      <circle cx="55" cy="55" r="4" fill="#8B5CF6"/>
+                      <circle cx="25" cy="55" r="4" fill="#8B5CF6"/>
+                      <line x1="40" y1="40" x2="25" y2="25" stroke="#6366F1" stroke-width="1.5" opacity="0.5"/>
+                      <line x1="40" y1="40" x2="55" y2="25" stroke="#6366F1" stroke-width="1.5" opacity="0.5"/>
+                      <line x1="40" y1="40" x2="55" y2="55" stroke="#6366F1" stroke-width="1.5" opacity="0.5"/>
+                      <line x1="40" y1="40" x2="25" y2="55" stroke="#6366F1" stroke-width="1.5" opacity="0.5"/>
+                    </svg>
+                    <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7; font-family: monospace;">IoT</p>
+                  </div>
+                  
+                  <!-- MySQL Logo -->
+                  <div class="float-animation" style="animation-delay: 3.2s;">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                      <path d="M20 35 Q20 28 27 28 L35 28 Q40 28 40 33 L40 48 Q40 53 35 53 L27 53 Q20 53 20 48 Z" fill="none" stroke="#00758F" stroke-width="3"/>
+                      <path d="M42 28 L42 48 Q42 53 47 53 L53 53 Q58 53 58 48 L58 33 Q58 28 53 28 L47 28 Q42 28 42 33" fill="none" stroke="#00758F" stroke-width="3"/>
+                      <circle cx="28" cy="38" r="2" fill="#F29111"/>
+                      <circle cx="50" cy="38" r="2" fill="#F29111"/>
+                      <path d="M22 55 Q25 58 30 55" stroke="#00758F" stroke-width="2" fill="none"/>
+                      <path d="M48 55 Q51 58 56 55" stroke="#00758F" stroke-width="2" fill="none"/>
+                    </svg>
+                    <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7; font-family: monospace;">MySQL</p>
+                  </div>
+                  
+                  <!-- PHP Logo -->
+                  <div class="pulse-animation" style="animation-delay: 3.4s;">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                      <ellipse cx="40" cy="40" rx="32" ry="18" fill="#777BB4" opacity="0.9"/>
+                      <text x="40" y="48" font-family="monospace" font-size="24" fill="white" text-anchor="middle" font-weight="bold">php</text>
+                    </svg>
+                    <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7; font-family: monospace;">PHP</p>
+                  </div>
+                  
+                  <!-- CSS3 Logo -->
+                  <div class="float-animation" style="animation-delay: 3.6s;">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                      <path d="M25 15 L20 60 L40 65 L60 60 L55 15 Z" fill="#1572B6" opacity="0.9"/>
+                      <path d="M40 20 L40 62 L56 58 L51 20 Z" fill="#33A9DC" opacity="0.8"/>
+                      <path d="M30 35 L50 35 L49 40 L31 40 L32 45 L48 45 L46 55 L40 57 L34 55 L33.5 52 L38 52 L38.5 53.5 L40 54 L41.5 53.5 L42 50 L33 50 L32 45 L35 35" fill="white"/>
+                    </svg>
+                    <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7; font-family: monospace;">CSS3</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" style="scroll-margin-top: 5rem;">
+          <div id="projects-section" style="padding: 5rem 2rem;">
+            <div style="max-width: 1200px; margin: 0 auto;">
+              <h2 id="projects-title" style="margin-bottom: 3rem; text-align: center; font-weight: 700;">Featured Projects</h2>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+                
+                <!-- Project 1 -->
+                <div class="project-card slide-in-scale projects-animate stagger-1" style="border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                  <div style="padding: 1.5rem; height: 200px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <svg width="120" height="120" viewBox="0 0 120 120">
+                      <rect x="20" y="30" width="80" height="60" rx="8" fill="white" opacity="0.9"/>
+                      <rect x="30" y="45" width="25" height="4" rx="2" fill="#667eea"/>
+                      <rect x="30" y="55" width="60" height="4" rx="2" fill="#667eea" opacity="0.5"/>
+                      <rect x="30" y="65" width="50" height="4" rx="2" fill="#667eea" opacity="0.5"/>
+                    </svg>
+                  </div>
+                  <div style="padding: 1.5rem;">
+                    <h3 class="project-title" style="margin-bottom: 0.75rem; font-weight: 600;">E-Commerce App Redesign</h3>
+                    <p class="project-desc" style="margin-bottom: 1rem; line-height: 1.6;">Complete redesign of mobile shopping experience with focus on conversion optimization and user flow.</p>
+                    <a href="#" class="project-button" style="text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem;" onclick="event.preventDefault()">
+                      View Case Study 
+                      <span style="transition: transform 0.3s ease; display: inline-block;" onmouseover="this.style.transform='translateX(4px)'" onmouseout="this.style.transform='translateX(0)'">→</span>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card slide-in-scale projects-animate stagger-2" style="border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                  <div style="padding: 1.5rem; height: 200px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <svg width="120" height="120" viewBox="0 0 120 120">
+                      <circle cx="60" cy="40" r="15" fill="white" opacity="0.9"/>
+                      <path d="M35 65 Q60 50 85 65 L85 85 Q60 95 35 85 Z" fill="white" opacity="0.9"/>
+                      <rect x="50" y="70" width="6" height="3" rx="1.5" fill="#f5576c"/>
+                      <rect x="64" y="70" width="6" height="3" rx="1.5" fill="#f5576c"/>
+                    </svg>
+                  </div>
+                  <div style="padding: 1.5rem;">
+                    <h3 class="project-title" style="margin-bottom: 0.75rem; font-weight: 600;">Health & Fitness Dashboard</h3>
+                    <p class="project-desc" style="margin-bottom: 1rem; line-height: 1.6;">Data visualization dashboard for tracking health metrics with personalized insights and goals.</p>
+                    <a href="#" class="project-button" style="text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem;" onclick="event.preventDefault()">
+                      View Case Study 
+                      <span style="transition: transform 0.3s ease; display: inline-block;" onmouseover="this.style.transform='translateX(4px)'" onmouseout="this.style.transform='translateX(0)'">→</span>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card slide-in-scale projects-animate stagger-3" style="border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                  <div style="padding: 1.5rem; height: 200px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <svg width="120" height="120" viewBox="0 0 120 120">
+                      <rect x="25" y="25" width="70" height="70" rx="12" fill="white" opacity="0.9"/>
+                      <circle cx="45" cy="50" r="8" fill="#4facfe"/>
+                      <circle cx="75" cy="50" r="8" fill="#4facfe"/>
+                      <path d="M45 70 Q60 80 75 70" stroke="#4facfe" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div style="padding: 1.5rem;">
+                    <h3 class="project-title" style="margin-bottom: 0.75rem; font-weight: 600;">Social Media Platform</h3>
+                    <p class="project-desc" style="margin-bottom: 1rem; line-height: 1.6;">Modern social platform with emphasis on meaningful connections and content discovery.</p>
+                    <a href="#" class="project-button" style="text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem;" onclick="event.preventDefault()">
+                      View Case Study 
+                      <span style="transition: transform 0.3s ease; display: inline-block;" onmouseover="this.style.transform='translateX(4px)'" onmouseout="this.style.transform='translateX(0)'">→</span>
+                    </a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" style="scroll-margin-top: 5rem;">
+          <div id="contact-section" style="padding: 5rem 2rem; position: relative;">
+            <div style="max-width: 600px; margin: 0 auto; text-align: center; position: relative; z-index: 1;">
+              <h2 id="contact-title" class="scroll-animate" style="margin-bottom: 1rem; font-weight: 700;">Let's Work Together</h2>
+              <p id="contact-description" class="scroll-animate" style="margin-bottom: 2.5rem; line-height: 1.6; transition-delay: 0.2s;">Have a project in mind? I'd love to hear about it.</p>
+              <button id="contact-button" class="scroll-animate" onclick="window.open('mailto:hello@sarahdesign.com', '_blank')" style="padding: 1rem 2.5rem; border: none; border-radius: 9999px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4); transition-delay: 0.4s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(59, 130, 246, 0.6)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 14px rgba(59, 130, 246, 0.4)'">Get in Touch</button>
+            </div>
+            <!-- Decorative elements -->
+            <div class="pulse-animation" style="position: absolute; top: 20%; left: 10%; width: 80px; height: 80px; background: rgba(59, 130, 246, 0.05); border-radius: 50%; pointer-events: none;"></div>
+            <div class="pulse-animation" style="position: absolute; bottom: 20%; right: 10%; width: 100px; height: 100px; background: rgba(59, 130, 246, 0.05); border-radius: 50%; animation-delay: 0.5s; pointer-events: none;"></div>
+          </div>
+        </section>
+
+        <!-- Footer -->
+        <footer id="footer" style="padding: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+          <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+            <div style="display: flex; gap: 1.5rem;">
+              <a href="#" class="social-link" onclick="event.preventDefault()" style="text-decoration: none; font-size: 1.25rem; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                </svg>
+              </a>
+              <a href="#" class="social-link" onclick="event.preventDefault()" style="text-decoration: none; font-size: 1.25rem; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+              </a>
+              <a href="#" class="social-link" onclick="event.preventDefault()" style="text-decoration: none; font-size: 1.25rem; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+              </a>
+            </div>
+            <p id="footer-text" style="text-align: center;">© 2024 Sarah Anderson. All rights reserved.</p>
+          </div>
+        </footer>
+      `;
+    }
+
+    // Initialize SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    // Initialize app
+    initializeApp();
+
+    // Scroll animation observer
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+          entry.target.classList.add('active');
+        }
+      });
+    }, observerOptions);
+
+    // Observe about section elements
+    setTimeout(() => {
+      const aboutElements = document.querySelectorAll('.about-animate');
+      aboutElements.forEach(el => {
+        el.style.animationPlayState = 'paused';
+        observer.observe(el);
+      });
+
+      // Observe project cards
+      const projectElements = document.querySelectorAll('.projects-animate');
+      projectElements.forEach(el => {
+        el.style.animationPlayState = 'paused';
+        observer.observe(el);
+      });
+
+      // Observe scroll animations
+      const scrollElements = document.querySelectorAll('.scroll-animate');
+      scrollElements.forEach(el => {
+        observer.observe(el);
+      });
+    }, 100);
+
+    // Parallax scroll effect
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrolled = window.pageYOffset;
+          const parallaxElements = document.querySelectorAll('.parallax-slow');
+          parallaxElements.forEach(el => {
+            const speed = 0.5;
+            el.style.transform = `translateY(${scrolled * speed}px)`;
+          });
+
+          const parallaxFast = document.querySelectorAll('.parallax-fast');
+          parallaxFast.forEach(el => {
+            const speed = 0.3;
+            el.style.transform = `translateY(${scrolled * speed}px)`;
+          });
+          
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    // Smooth reveal on scroll for sections
+    const revealOptions = {
+      threshold: 0.15,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+        }
+      });
+    }, revealOptions);
+
+    setTimeout(() => {
+      const sections = document.querySelectorAll('section');
+      sections.forEach(section => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(30px)';
+        section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        revealObserver.observe(section);
+      });
+    }, 100);
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a37127dd6fa9f92',t:'MTc2Mzk2ODA3Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
